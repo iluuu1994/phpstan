@@ -5,6 +5,7 @@ namespace PHPStan\Analyser;
 use PHPStan\File\FileHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\Rules\Registry;
+use PHPStan\Rules\RuleError;
 
 class Analyser
 {
@@ -125,8 +126,12 @@ class Analyser
 					$this->scopeFactory->create(ScopeContext::create($file)),
 					function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors): void {
 						foreach ($this->registry->getRules(get_class($node)) as $rule) {
-							foreach ($rule->processNode($node, $scope) as $message) {
-								$fileErrors[] = new Error($message, $scope->getFileDescription(), $node->getLine());
+							foreach ($rule->processNode($node, $scope) as $ruleError) {
+								if (is_string($ruleError)) {
+									$ruleError = new RuleError($node, $ruleError);
+								}
+
+								$fileErrors[] = new Error($ruleError->message, $scope->getFileDescription(), $ruleError->node->getLine());
 							}
 						}
 					}

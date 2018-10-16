@@ -5,6 +5,7 @@ namespace PHPStan\Reflection\Annotations;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\MethodsClassReflectionExtension;
+use PHPStan\Type\CommentHelper;
 use PHPStan\Type\FileTypeMapper;
 
 class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflectionExtension
@@ -64,8 +65,8 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 			return $methods;
 		}
 
-		$docComment = $classReflection->getNativeReflection()->getDocComment();
-		if ($docComment === false) {
+		$docComment = CommentHelper::getDocComment($classReflection->getNativeReflection());
+		if ($docComment === null) {
 			return $methods;
 		}
 

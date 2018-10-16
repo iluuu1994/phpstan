@@ -1956,8 +1956,8 @@ class NodeScopeResolver
 		$isDeprecated = false;
 		$isInternal = false;
 		$isFinal = false;
-		if ($functionLike->getDocComment() !== null) {
-			$docComment = $functionLike->getDocComment()->getText();
+		$docComment = CommentHelper::getDocComment($functionLike);
+		if ($docComment !== null) {
 			$file = $scope->getFile();
 			$class = $scope->isInClass() ? $scope->getClassReflection()->getName() : null;
 			$trait = $scope->isInTrait() ? $scope->getTraitReflection()->getName() : null;

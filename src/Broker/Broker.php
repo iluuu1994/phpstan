@@ -16,6 +16,7 @@ use PHPStan\Reflection\Native\NativeParameterReflection;
 use PHPStan\Reflection\SignatureMap\ParameterSignature;
 use PHPStan\Reflection\SignatureMap\SignatureMapProvider;
 use PHPStan\Type\BooleanType;
+use PHPStan\Type\CommentHelper;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
@@ -468,9 +469,9 @@ class Broker
 		$isDeprecated = false;
 		$isInternal = false;
 		$isFinal = false;
-		if ($reflectionFunction->getFileName() !== false && $reflectionFunction->getDocComment() !== false) {
+		$docComment = CommentHelper::getDocComment($reflectionFunction);
+		if ($reflectionFunction->getFileName() !== false && $docComment !== null) {
 			$fileName = $reflectionFunction->getFileName();
-			$docComment = $reflectionFunction->getDocComment();
 			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, null, null, $docComment);
 			$phpDocParameterTags = $resolvedPhpDoc->getParamTags();
 			$phpDocReturnTag = $resolvedPhpDoc->getReturnTag();

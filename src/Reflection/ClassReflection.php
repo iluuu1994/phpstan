@@ -6,6 +6,7 @@ use PHPStan\Broker\Broker;
 use PHPStan\PhpDoc\ResolvedPhpDocBlock;
 use PHPStan\Reflection\Php\PhpClassReflectionExtension;
 use PHPStan\Reflection\Php\PhpPropertyReflection;
+use PHPStan\Type\CommentHelper;
 use PHPStan\Type\FileTypeMapper;
 
 class ClassReflection implements DeprecatableReflection, InternableReflection, FinalizableReflection, ReflectionWithFilename
@@ -396,8 +397,8 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 
 			$isDeprecated = false;
 			$isInternal = false;
-			if ($reflectionConstant->getDocComment() !== false && $this->getFileName() !== false) {
-				$docComment = $reflectionConstant->getDocComment();
+			$docComment = CommentHelper::getDocComment($reflectionConstant);
+			if ($docComment !== null && $this->getFileName() !== false) {
 				$fileName = $this->getFileName();
 				$className = $reflectionConstant->getDeclaringClass()->getName();
 				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, $className, null, $docComment);
@@ -474,8 +475,8 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 			return null;
 		}
 
-		$docComment = $this->reflection->getDocComment();
-		if ($docComment === false) {
+		$docComment = CommentHelper::getDocComment($this->reflection);
+		if ($docComment === null) {
 			return null;
 		}
 

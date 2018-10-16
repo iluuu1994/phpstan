@@ -5,6 +5,7 @@ namespace PHPStan\Reflection\Annotations;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\PropertiesClassReflectionExtension;
 use PHPStan\Reflection\PropertyReflection;
+use PHPStan\Type\CommentHelper;
 use PHPStan\Type\FileTypeMapper;
 
 class AnnotationsPropertiesClassReflectionExtension implements PropertiesClassReflectionExtension
@@ -65,8 +66,8 @@ class AnnotationsPropertiesClassReflectionExtension implements PropertiesClassRe
 			return $properties;
 		}
 
-		$docComment = $classReflection->getNativeReflection()->getDocComment();
-		if ($docComment === false) {
+		$docComment = CommentHelper::getDocComment($classReflection->getNativeReflection());
+		if ($docComment === null) {
 			return $properties;
 		}
 

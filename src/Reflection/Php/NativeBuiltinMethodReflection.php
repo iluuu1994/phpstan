@@ -2,6 +2,8 @@
 
 namespace PHPStan\Reflection\Php;
 
+use PHPStan\Type\CommentHelper;
+
 class NativeBuiltinMethodReflection implements BuiltinMethodReflection
 {
 
@@ -39,12 +41,9 @@ class NativeBuiltinMethodReflection implements BuiltinMethodReflection
 		return $this->reflection->getStartLine();
 	}
 
-	/**
-	 * @return string|false
-	 */
-	public function getDocComment()
+	public function getDocComment(): ?string
 	{
-		return $this->reflection->getDocComment();
+		return CommentHelper::getDocComment($this->reflection);
 	}
 
 	public function isStatic(): bool

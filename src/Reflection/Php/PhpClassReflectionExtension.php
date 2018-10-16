@@ -18,6 +18,7 @@ use PHPStan\Reflection\PropertiesClassReflectionExtension;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Reflection\SignatureMap\ParameterSignature;
 use PHPStan\Reflection\SignatureMap\SignatureMapProvider;
+use PHPStan\Type\CommentHelper;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
@@ -127,12 +128,13 @@ class PhpClassReflectionExtension
 				return $annotationProperty;
 			}
 		}
-		if ($propertyReflection->getDocComment() === false) {
+		$docComment = CommentHelper::getDocComment($propertyReflection);
+		if ($docComment === null) {
 			$type = new MixedType();
 		} elseif ($declaringClassReflection->getFileName() !== false) {
 			$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForProperty(
 				$this->broker,
-				$propertyReflection->getDocComment(),
+				$docComment,
 				$declaringClassReflection->getName(),
 				$propertyName,
 				$declaringClassReflection->getFileName()
@@ -316,7 +318,7 @@ class PhpClassReflectionExtension
 		$isFinal = false;
 		$declaringTraitName = $this->findMethodTrait($methodReflection);
 		if ($declaringClass->getFileName() !== false) {
-			if ($methodReflection->getDocComment() !== false) {
+			if ($methodReflection->getDocComment() !== null) {
 				$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
 					$this->broker,
 					$methodReflection->getDocComment(),

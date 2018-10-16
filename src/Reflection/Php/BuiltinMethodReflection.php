@@ -19,10 +19,7 @@ interface BuiltinMethodReflection
 	 */
 	public function getStartLine();
 
-	/**
-	 * @return string|false
-	 */
-	public function getDocComment();
+	public function getDocComment(): ?string;
 
 	public function isStatic(): bool;
 

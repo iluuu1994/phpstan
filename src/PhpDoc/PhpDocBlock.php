@@ -152,7 +152,7 @@ class PhpDocBlock
 			) {
 				return null;
 			}
-			if ($parentReflection->getDocComment() !== false) {
+			if ($parentReflection->getDocComment() !== null) {
 				return self::$resolveMethodName(
 					$broker,
 					$parentReflection->getDocComment(),

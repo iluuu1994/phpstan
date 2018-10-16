@@ -6,6 +6,7 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\DeprecatableReflection;
 use PHPStan\Reflection\InternableReflection;
 use PHPStan\Reflection\PropertyReflection;
+use PHPStan\Type\CommentHelper;
 use PHPStan\Type\Type;
 
 class PhpPropertyReflection implements PropertyReflection, DeprecatableReflection, InternableReflection
@@ -46,12 +47,9 @@ class PhpPropertyReflection implements PropertyReflection, DeprecatableReflectio
 		return $this->declaringClass;
 	}
 
-	/**
-	 * @return string|false
-	 */
-	public function getDocComment()
+	public function getDocComment(): ?string
 	{
-		return $this->reflection->getDocComment();
+		return CommentHelper::getDocComment($this->reflection);
 	}
 
 	public function isStatic(): bool

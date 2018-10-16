@@ -134,10 +134,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 		return $this->declaringClass;
 	}
 
-	/**
-	 * @return string|false
-	 */
-	public function getDocComment()
+	public function getDocComment(): ?string
 	{
 		return $this->reflection->getDocComment();
 	}

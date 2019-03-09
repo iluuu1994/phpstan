@@ -1004,7 +1004,8 @@ class Scope implements ClassMemberAccessAnswerer
 			return new ClosureType(
 				$parameters,
 				$this->getFunctionType($node->returnType, $node->returnType === null, false),
-				$isVariadic
+				$isVariadic,
+				$node->static
 			);
 		} elseif ($node instanceof New_) {
 			if ($node->class instanceof Name) {

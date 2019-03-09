@@ -13,7 +13,7 @@ class CallableTypeTest extends \PHPStan\Testing\TestCase
 		return [
 			[
 				new CallableType(),
-				new ClosureType([], new MixedType(), false),
+				new ClosureType([], new MixedType(), false, false),
 				TrinaryLogic::createYes(),
 			],
 			[

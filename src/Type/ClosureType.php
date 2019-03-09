@@ -28,21 +28,27 @@ class ClosureType implements Type, ParametersAcceptor
 	/** @var bool */
 	private $variadic;
 
+	/** @var bool */
+	private $static;
+
 	/**
 	 * @param array<int, \PHPStan\Reflection\Native\NativeParameterReflection> $parameters
 	 * @param Type $returnType
 	 * @param bool $variadic
+	 * @param bool $static
 	 */
 	public function __construct(
 		array $parameters,
 		Type $returnType,
-		bool $variadic
+		bool $variadic,
+		bool $static
 	)
 	{
 		$this->objectType = new ObjectType(\Closure::class);
 		$this->parameters = $parameters;
 		$this->returnType = $returnType;
 		$this->variadic = $variadic;
+		$this->static = $static;
 	}
 
 	/**
@@ -269,6 +275,11 @@ class ClosureType implements Type, ParametersAcceptor
 		return $this->variadic;
 	}
 
+	public function isStatic(): bool
+	{
+		return $this->static;
+	}
+
 	public function getReturnType(): Type
 	{
 		return $this->returnType;
@@ -283,7 +294,8 @@ class ClosureType implements Type, ParametersAcceptor
 		return new self(
 			$properties['parameters'],
 			$properties['returnType'],
-			$properties['variadic']
+			$properties['variadic'],
+			$properties['static']
 		);
 	}
 

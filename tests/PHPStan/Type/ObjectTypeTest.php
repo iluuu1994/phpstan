@@ -200,12 +200,12 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				new ObjectType(\stdClass::class),
-				new ClosureType([], new MixedType(), false),
+				new ClosureType([], new MixedType(), false, false),
 				TrinaryLogic::createNo(),
 			],
 			[
 				new ObjectType(\Closure::class),
-				new ClosureType([], new MixedType(), false),
+				new ClosureType([], new MixedType(), false, false),
 				TrinaryLogic::createYes(),
 			],
 			[

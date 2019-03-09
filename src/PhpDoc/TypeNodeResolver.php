@@ -65,7 +65,7 @@ class TypeNodeResolver
 
 	public function getCacheKey(): string
 	{
-		$key = 'v50';
+		$key = 'v51';
 		foreach ($this->extensions as $extension) {
 			$key .= sprintf('-%s', $extension->getCacheKey());
 		}
@@ -343,7 +343,7 @@ class TypeNodeResolver
 			$mainType instanceof ObjectType
 			&& $mainType->getClassName() === \Closure::class
 		) {
-			return new ClosureType($parameters, $returnType, $isVariadic);
+			return new ClosureType($parameters, $returnType, $isVariadic, false);
 		}
 
 		return new ErrorType();

@@ -598,12 +598,12 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 		return [
 			[
 				new UnionType([new CallableType(), new NullType()]),
-				new ClosureType([], new StringType(), false),
+				new ClosureType([], new StringType(), false, false),
 				TrinaryLogic::createYes(),
 			],
 			[
 				new UnionType([new CallableType(), new NullType()]),
-				new UnionType([new ClosureType([], new StringType(), false), new BooleanType()]),
+				new UnionType([new ClosureType([], new StringType(), false, false), new BooleanType()]),
 				TrinaryLogic::createMaybe(),
 			],
 			[

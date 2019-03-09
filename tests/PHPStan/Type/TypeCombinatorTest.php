@@ -632,14 +632,14 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			[
 				[
 					new ObjectType(\Closure::class),
-					new ClosureType([], new MixedType(), false),
+					new ClosureType([], new MixedType(), false, false),
 				],
 				ObjectType::class,
 				'Closure',
 			],
 			[
 				[
-					new ClosureType([], new MixedType(), false),
+					new ClosureType([], new MixedType(), false, false),
 					new CallableType(),
 				],
 				CallableType::class,
@@ -1343,7 +1343,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new ClosureType([], new MixedType(), false),
+					new ClosureType([], new MixedType(), false, false),
 					new HasOffsetType(new ConstantStringType('a')),
 				],
 				NeverType::class,
@@ -1373,7 +1373,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 							[new ConstantStringType('a')],
 							[new ConstantStringType('foo')]
 						),
-						new ClosureType([], new MixedType(), false),
+						new ClosureType([], new MixedType(), false, false),
 					]),
 					new HasOffsetType(new ConstantStringType('a')),
 				],
@@ -1382,7 +1382,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new ClosureType([], new MixedType(), false),
+					new ClosureType([], new MixedType(), false, false),
 					new ObjectType(\Closure::class),
 				],
 				ClosureType::class,
@@ -1390,7 +1390,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new ClosureType([], new MixedType(), false),
+					new ClosureType([], new MixedType(), false, false),
 					new CallableType(),
 				],
 				ClosureType::class,
@@ -1398,7 +1398,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new ClosureType([], new MixedType(), false),
+					new ClosureType([], new MixedType(), false, false),
 					new ObjectWithoutClassType(),
 				],
 				ClosureType::class,
